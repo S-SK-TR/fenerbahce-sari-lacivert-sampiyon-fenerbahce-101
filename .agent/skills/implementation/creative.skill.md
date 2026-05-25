@@ -211,7 +211,7 @@ Avoid:
 
 ---
 
-# SCROLL SYSTEM
+# SCROLL & VIEW SYSTEM
 
 Scrolling should feel like:
 - camera movement
@@ -219,10 +219,10 @@ Scrolling should feel like:
 - narrative exploration
 
 Every scroll interaction must:
-- reveal story gradually
-- maintain immersion
-- control emotional pacing
-- support cinematic continuity
+- Reveal story gradually using IntersectionObserver fade-ins
+- Use the `.reveal-on-scroll` and `.revealed` utility classes for smooth transitions
+- Include a scroll progress bar: A thin, accent-colored progress line at the very top of the page (3px height)
+- Include a right-side navigation bar: A vertical column of dots linked to sections/chapters (customized to match the theme color)
 
 ---
 
@@ -235,52 +235,82 @@ Interactions should feel:
 - premium
 - emotionally responsive
 
-Interaction goals:
-- deepen immersion
-- reinforce atmosphere
-- support storytelling
-- create emotional feedback
+Core UI Requirements:
+- Custom Mouse Cursor: An accent-colored glowing dot (var(--accent-color)) that moves with a smooth lerp lag behind the pointer
+- Cursor Hover Effects: Cursor should expand/invert when hovering over buttons, links, or interactive elements
+- Film-Grain Particles: A background canvas rendering slowly rising, sparse particles mapping stardust or atmospheric dust matching the theme's colors
+- Sound Synthesis: Web Audio synthesis triggering chords on chapter changes, pentatonic chimes on clicking
 
 ---
 
 # TYPOGRAPHY SYSTEM
 
-Typography is cinematic narration.
+Typography is cinematic narration. Select a font combination matching the project's storytelling genre:
 
-Preferred typography:
-- oversized cinematic headlines
-- dramatic spacing
-- elegant rhythm
-- high contrast hierarchy
-- minimal but impactful copy
+## 1. Romantic / Poetic / Classical
+- **Headings**: `Cinzel` or `Playfair Display` (serif, elegant Roman style)
+- **Body & Narration**: `Cormorant Garamond` or `Lora` (expressive, high-contrast serif)
 
-Typography should:
-- guide pacing
-- create emotion
-- establish atmosphere
-- reinforce visual identity
+## 2. Cyberpunk / Sci-Fi / High-Tech
+- **Headings**: `Orbitron` or `Syncopate` or `Space Grotesk` (futuristic, bold sans-serif)
+- **Body & Narration**: `Space Mono` or `Share Tech Mono` or `Inter` (monospace or clean technical sans-serif)
+
+## 3. Modern Luxury / Minimalist / Editorial
+- **Headings**: `Syne` or `Bodoni Moda` (fashion-forward, artistic serif or geometric sans)
+- **Body & Narration**: `Montserrat` or `Inter` (geometric, clean sans-serif)
+
+## 4. Mystical / Historical / Nature
+- **Headings**: `Cinzel Decorative` or `Cinzel`
+- **Body & Narration**: `EB Garamond` or `Merriweather` (warm, traditional serif)
+
+*Note: Always use dramatic letter-spacing (tracking) for titles and generous line heights for pacing and legibility.*
 
 ---
 
-# COLOR SYSTEM
+# COLOR SYSTEM & THEME CONFIGURATION
 
-Colors should feel:
-- atmospheric
-- emotional
-- cinematic
-- intentional
+Colors must define the atmosphere. The AI must declare the following CSS variables inside `src/index.css` under `:root` to customize the experience to match the project's theme:
 
-Preferred palettes:
-- deep blacks
-- muted tones
-- environmental gradients
-- soft highlights
-- controlled contrast
+```css
+:root {
+  --bg-color: [Theme Background Color];
+  --text-color: [Theme Foreground/Text Color];
+  --accent-color: [Primary Theme Highlight Color];
+  --accent-glow: [RGBA color representing highlight glow];
+  --title-font: [Google Font family for headings];
+  --body-font: [Google Font family for narration];
+}
+```
+
+## Recommended Color Palettes:
+
+### A. Deep Velvet (Romantic / Dramatic)
+- Background (`--bg-color`): Deep Black `#090909`
+- Text (`--text-color`): Warm Cream `#f9f6f0`
+- Accent (`--accent-color`): Dusty Rose `#d4a3a1`
+- Glow (`--accent-glow`): `rgba(212, 163, 161, 0.15)`
+
+### B. Neon Grid (Cyberpunk / High-Tech)
+- Background (`--bg-color`): Obsidian Dark `#05070a`
+- Text (`--text-color`): Bright Silver `#e2e8f0`
+- Accent (`--accent-color`): Neon Cyan `#00f2fe` or Amber `#ff9f43`
+- Glow (`--accent-glow`): `rgba(0, 242, 254, 0.15)`
+
+### C. Pure Obsidian (Minimalist Luxury)
+- Background (`--bg-color`): Pitch Black `#000000`
+- Text (`--text-color`): Pure White `#ffffff`
+- Accent (`--accent-color`): Metallic Gold `#dfb15b` or Deep Gray `#8e8e93`
+- Glow (`--accent-glow`): `rgba(223, 177, 91, 0.15)`
+
+### D. Forest Shadow (Mystical / Nature)
+- Background (`--bg-color`): Forest Onyx `#0a0f0d`
+- Text (`--text-color`): Soft Birch `#eae6df`
+- Accent (`--accent-color`): Emerald Green `#3b7a57` or Warm Gold `#e5a93c`
+- Glow (`--accent-glow`): `rgba(59, 122, 87, 0.15)`
 
 Avoid:
-- rainbow palettes
-- oversaturation
-- noisy color combinations
+- Rainbow palettes or oversaturated generic primary colors
+- Deprecated Tailwind v4 theme() function calls in CSS files (always use var(--color-*) variables instead)
 
 ---
 
