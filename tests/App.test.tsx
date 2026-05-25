@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
+import App from '../../src/App';
 import { MemoryRouter } from 'react-router-dom';
-import App from '../src/App';
 
 describe('App Component', () => {
   it('renders the AppShell component', () => {
@@ -13,7 +13,7 @@ describe('App Component', () => {
     expect(screen.getByText('Fenerbahçe')).toBeInTheDocument();
   });
 
-  it('renders all feature routes', () => {
+  it('renders all routes', () => {
     render(
       <MemoryRouter initialEntries={['/planner']}>
         <App />

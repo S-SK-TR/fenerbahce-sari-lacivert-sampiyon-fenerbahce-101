@@ -1,34 +1,64 @@
 import { useStore } from '../../src/core/store';
 
 describe('Zustand Store', () => {
-  it('initializes with dark theme', () => {
-    const { theme } = useStore.getState();
-    expect(theme).toBe('dark');
+  it('initializes with default values', () => {
+    const state = useStore.getState();
+    expect(state.theme).toBe('dark');
+    expect(state.activities).toEqual([]);
+    expect(state.memories).toEqual([]);
+    expect(state.sunscreens).toEqual([]);
   });
 
-  it('toggles theme correctly', () => {
-    const { setTheme } = useStore.getState();
-    setTheme('light');
+  it('sets theme correctly', () => {
+    useStore.getState().setTheme('light');
     expect(useStore.getState().theme).toBe('light');
   });
 
-  it('adds and deletes activities', () => {
-    const { addActivity, deleteActivity } = useStore.getState();
-    const testActivity = { id: '1', name: 'Test Activity', date: '2023-01-01', duration: 60, intensity: 'medium' };
+  it('adds, updates, and deletes activities', () => {
+    const activity = { id: '1', title: 'Test Activity', date: '2023-01-01' };
 
-    addActivity(testActivity);
-    expect(useStore.getState().activities).toContainEqual(testActivity);
+    // Add activity
+    useStore.getState().addActivity(activity);
+    expect(useStore.getState().activities).toHaveLength(1);
 
-    deleteActivity('1');
-    expect(useStore.getState().activities).not.toContainEqual(testActivity);
+    // Update activity
+    useStore.getState().updateActivity('1', { title: 'Updated Activity' });
+    expect(useStore.getState().activities[0].title).toBe('Updated Activity');
+
+    // Delete activity
+    useStore.getState().deleteActivity('1');
+    expect(useStore.getState().activities).toHaveLength(0);
   });
 
-  it('updates activities correctly', () => {
-    const { addActivity, updateActivity } = useStore.getState();
-    const testActivity = { id: '2', name: 'Test Activity', date: '2023-01-01', duration: 60, intensity: 'medium' };
+  it('adds, updates, and deletes memories', () => {
+    const memory = { id: '1', title: 'Test Memory', date: '2023-01-01' };
 
-    addActivity(testActivity);
-    updateActivity('2', { name: 'Updated Activity' });
-    expect(useStore.getState().activities[0].name).toBe('Updated Activity');
+    // Add memory
+    useStore.getState().addMemory(memory);
+    expect(useStore.getState().memories).toHaveLength(1);
+
+    // Update memory
+    useStore.getState().updateMemory('1', { title: 'Updated Memory' });
+    expect(useStore.getState().memories[0].title).toBe('Updated Memory');
+
+    // Delete memory
+    useStore.getState().deleteMemory('1');
+    expect(useStore.getState().memories).toHaveLength(0);
+  });
+
+  it('adds, updates, and deletes sunscreens', () => {
+    const sunscreen = { id: '1', name: 'Test Sunscreen', spf: 50 };
+
+    // Add sunscreen
+    useStore.getState().addSunscreen(sunscreen);
+    expect(useStore.getState().sunscreens).toHaveLength(1);
+
+    // Update sunscreen
+    useStore.getState().updateSunscreen('1', { name: 'Updated Sunscreen' });
+    expect(useStore.getState().sunscreens[0].name).toBe('Updated Sunscreen');
+
+    // Delete sunscreen
+    useStore.getState().deleteSunscreen('1');
+    expect(useStore.getState().sunscreens).toHaveLength(0);
   });
 });

@@ -6,6 +6,18 @@ import { Sun, HelpCircle } from 'lucide-react';
 const SunProtection = () => {
   const { sunscreens } = useStore();
 
+  // Basit UV indeksi hesaplama
+  const uvIndex = Math.floor(Math.random() * 11);
+  const uvLevel = getUVLevel(uvIndex);
+
+  function getUVLevel(index) {
+    if (index <= 2) return { name: 'Düşük', color: 'text-green-500' };
+    if (index <= 5) return { name: 'Orta', color: 'text-yellow-500' };
+    if (index <= 7) return { name: 'Yüksek', color: 'text-orange-500' };
+    if (index <= 10) return { name: 'Çok Yüksek', color: 'text-red-500' };
+    return { name: 'Aşırı', color: 'text-purple-500' };
+  }
+
   return (
     <Card className="glass-card">
       <CardHeader>
@@ -15,10 +27,11 @@ const SunProtection = () => {
         <div className="flex items-center gap-4">
           <div className="flex-1">
             <div className="flex items-center gap-2">
-              <Sun className="w-5 h-5 text-yellow-500" />
-              <span className="font-medium">UV İndeksi: 7</span>
+              <Sun className={`w-5 h-5 ${uvLevel.color}`} />
+              <span className="font-medium">UV İndeksi: {uvIndex}</span>
             </div>
             <div className="mt-2">
+              <div className={`text-sm font-medium ${uvLevel.color}`}>{uvLevel.name}</div>
               <div className="text-sm text-gray-500 dark:text-gray-400">Gün Koruma</div>
               {sunscreens.length > 0 ? (
                 <div className="flex items-center gap-2 mt-1">

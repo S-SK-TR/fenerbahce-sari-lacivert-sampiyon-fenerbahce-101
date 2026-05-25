@@ -1,10 +1,10 @@
 import React from 'react';
 import { PageContainer } from '../../components/layout/PageContainer';
 import { BentoGrid } from '../../components/ui/BentoGrid';
-import { ActivityChart } from './ActivityChart';
-import { RecentMemories } from './RecentMemories';
-import { SunProtection } from './SunProtection';
-import { QuickActions } from './QuickActions';
+import ActivityChart from './ActivityChart';
+import RecentMemories from './RecentMemories';
+import SunProtection from './SunProtection';
+import QuickActions from './QuickActions';
 
 const Dashboard = () => {
   return (
