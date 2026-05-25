@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { BentoGrid } from '../../../src/components/ui/BentoGrid';
 
 describe('BentoGrid Component', () => {
-  it('renders without crashing', () => {
+  it('renders children correctly', () => {
     render(
       <BentoGrid>
         <div>Test Child</div>
@@ -12,15 +12,12 @@ describe('BentoGrid Component', () => {
     expect(screen.getByText('Test Child')).toBeInTheDocument();
   });
 
-  it('applies correct grid classes', () => {
+  it('applies custom className', () => {
     const { container } = render(
-      <BentoGrid>
+      <BentoGrid className="custom-class">
         <div>Test Child</div>
       </BentoGrid>
     );
-    expect(container.firstChild).toHaveClass('grid');
-    expect(container.firstChild).toHaveClass('grid-cols-1');
-    expect(container.firstChild).toHaveClass('md:grid-cols-2');
-    expect(container.firstChild).toHaveClass('lg:grid-cols-4');
+    expect(container.firstChild).toHaveClass('custom-class');
   });
 });

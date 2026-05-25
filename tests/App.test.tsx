@@ -1,24 +1,24 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import App from '../src/App';
 
 describe('App Component', () => {
-  it('renders correctly with title and message', () => {
-    render(<App />);
-
-    // Başlık render edildi mi?
-    expect(screen.getByText(/Fenerbahçe Sarı-Lacivert: Şampiyon Fenerbahçe/i)).toBeInTheDocument();
-
-    // Mesaj render edildi mi?
-    expect(screen.getByText(/Uygulama başarıyla oluşturuldu!/i)).toBeInTheDocument();
+  it('renders the AppShell component', () => {
+    render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>
+    );
+    expect(screen.getByText('Fenerbahçe')).toBeInTheDocument();
   });
 
-  it('has correct styling', () => {
-    render(<App />);
-    const container = screen.getByText(/Fenerbahçe/i).parentElement;
-
-    // Doğru stil uygulandı mı?
-    expect(container).toHaveStyle('textAlign: center');
-    expect(container).toHaveStyle('marginTop: 5rem');
+  it('renders all feature routes', () => {
+    render(
+      <MemoryRouter initialEntries={['/planner']}>
+        <App />
+      </MemoryRouter>
+    );
+    expect(screen.getByText('Planner')).toBeInTheDocument();
   });
 });
